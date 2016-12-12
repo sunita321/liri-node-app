@@ -6,18 +6,14 @@ spotify-this-song
 movie-this
 do-what-it-says */
 
-// Load the fs package to read and write
-var fs = require("fs");
+// Grabs the bands variables
+var keys = require("./keys.js");
 
-fs.readFile("keys.js", "utf8", function(error, data) {
+// Gets all of myBands bands from the bands file.
+var keyList = keys.twitterKeys;
 
-  // We will then print the contents of data
-console.log(data);
-
-  //Store the keys in a variable.
-  var twitterKeys = data;
-
-  // We will then re-display the content as an array for later use.
-  console.log(twitterKeys);
-
-});
+// Loop through band list and print out details
+for (var key in keyList) 
+{
+  console.log(key + " " + keyList[key]);
+}
