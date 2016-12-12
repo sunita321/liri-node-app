@@ -6,24 +6,37 @@ spotify-this-song
 movie-this
 do-what-it-says */
 
-var Twitter = require('twitter');
+var action = process.argv[2];
 
-// Grabs the bands variables
-var keys = require("./keys.js");
-
-// Gets all of myBands bands from the bands file.
-var keyList = keys.twitterKeys;
-
-// Loop through band list and print out details
-for (var key in keyList) 
+switch (action) 
 {
-  console.log(key + " " + keyList[key]);
+  case "my-tweets":
+    getMyTweets();
+    break;
 }
 
-var client = new Twitter(keyList);
+function getMyTweets() 
+{
+	var Twitter = require('twitter');
 
-var params = {screen_name: 'Sunita_Girl'};
-client.get('statuses/user_timeline', params, processTweets);
+	// Grabs the bands variables
+	var keys = require("./keys.js");
+
+	// Gets all of myBands bands from the bands file.
+	var keyList = keys.twitterKeys;
+
+	// Loop through band list and print out details
+	/*for (var key in keyList) 
+	{
+		console.log(key + " " + keyList[key]);
+	}*/
+
+	var client = new Twitter(keyList);
+
+	var params = {screen_name: 'Sunita_Girl'};
+	client.get('statuses/user_timeline', params, processTweets);
+}
+
 
 function processTweets(error, tweets, response)
 {
@@ -32,7 +45,6 @@ function processTweets(error, tweets, response)
   	for (var i = 0; i < 20; i++) 
   	{ 
   		console.log(tweets[i].text);
-  		
   	}
     
   }
