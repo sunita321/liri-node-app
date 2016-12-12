@@ -6,6 +6,8 @@ spotify-this-song
 movie-this
 do-what-it-says */
 
+var Twitter = require('twitter');
+
 // Grabs the bands variables
 var keys = require("./keys.js");
 
@@ -16,4 +18,27 @@ var keyList = keys.twitterKeys;
 for (var key in keyList) 
 {
   console.log(key + " " + keyList[key]);
+}
+
+var client = new Twitter(keyList);
+
+var params = {screen_name: 'Sunita_Girl'};
+client.get('statuses/user_timeline', params, processTweets);
+
+function processTweets(error, tweets, response)
+{
+  if (!error) 
+  {
+  	for (var i = 0; i < 20; i++) 
+  	{ 
+  		console.log(tweets[i].text);
+  		
+  	}
+    
+  }
+
+  else 
+  {
+  	console.log("Server Error");
+  }
 }
