@@ -74,7 +74,14 @@ spotify.search({ type: 'track', query: 'bangarang' }, function(err, data) {
  
     else
     {
-    	console.log(data.tracks.preview_url);
+    	for (var i = 0; i < data.tracks.items[0].artists.length; i++)
+    	{
+    		console.log(data.tracks.items[0].artists[i].name);
+
+    	}
+    		
+    		console.log(data.tracks.items[0].preview_url);
+
     	// Do something with 'data' 
     }
 });
