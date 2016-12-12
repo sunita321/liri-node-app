@@ -13,6 +13,11 @@ switch (action)
   case "my-tweets":
     getMyTweets();
     break;
+
+	case "spotify-this-song":
+    getSpotify();
+    break;
+    
 }
 
 function getMyTweets() 
@@ -53,4 +58,24 @@ function processTweets(error, tweets, response)
   {
   	console.log("Server Error");
   }
+}
+
+function getSpotify()
+{
+	var spotify = require('spotify');
+ 
+spotify.search({ type: 'track', query: 'bangarang' }, function(err, data) {
+    
+    if ( err ) 
+    {
+        console.log('Error occurred: ' + err);
+        return;
+    }
+ 
+    else
+    {
+    	console.log(data.tracks.preview_url);
+    	// Do something with 'data' 
+    }
+});
 }
