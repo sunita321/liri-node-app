@@ -10,6 +10,7 @@ do-what-it-says */
 var Twitter = require('twitter');
 var spotify = require('spotify');
 var Request = require('request');
+var fs = require('fs');
 
 var action = process.argv[2];
 
@@ -27,6 +28,10 @@ switch (action)
 
     case "movie-this":
     getMovie(actionArgument);
+    break;
+
+    case "do-what-it-says":
+    doWhatItSays();
     break;
     
 }
@@ -124,5 +129,39 @@ function getMovie(searchMovie) {
 	});
 
 
+}
+
+function doWhatItSays()
+{
+	//read file
+	fs.readFile('random.txt', 'utf8', function(error, data)
+	{
+		if (error)
+		return console.log('Read error: ' + error);
+
+		//split dat to array
+		var fileObject = data.split(',');
+
+		var userFunction = fileObject[0];
+		var userArgument = fileObject[1];
+
+		switch (userFunction)
+		{
+			case 'my-tweets':
+			userFunction = 'getMyTweets';
+			break;
+
+			case 'spotify-this-song':
+			userFunction = 'getSpotify';
+			break;
+
+			case 'movie-this':
+			userFunction = 'getMovie';
+			break;
+
+		}
+
+		eval(userFunction)(userArgument);
+	});
 }
 
